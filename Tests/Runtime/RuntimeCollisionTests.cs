@@ -61,7 +61,9 @@ namespace CollisionSystem.Tests
             rb.bodyType = kinematic ? RigidbodyType2D.Kinematic : RigidbodyType2D.Dynamic;
             go.AddComponent<BoxCollider2D>();
             go.AddComponent<CollisionParticipant>();
+#if UNITY_2D_PHYSICS
             go.AddComponent<CollisionReporter2D>();
+#endif
             go.AddComponent<TestListener>();
             return go;
         }

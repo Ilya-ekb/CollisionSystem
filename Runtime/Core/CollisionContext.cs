@@ -6,7 +6,9 @@ namespace CollisionSystem.Core
     {
         public readonly GameObject A;
         public readonly GameObject B;
+#if UNITY_2D_PHYSICS
         public readonly bool Is2D;
+#endif
 
         public readonly Vector3 RelativeVelocity;
         public readonly float RelativeSpeed;
@@ -14,22 +16,29 @@ namespace CollisionSystem.Core
         public readonly Vector3 ContactNormal;
 
         public readonly Collision Collision3D;
+#if UNITY_2D_PHYSICS
         public readonly Collision2D Collision2D;
+#endif
 
-        public CollisionContext(GameObject a, GameObject b, Vector3 relVel, Vector3 contactPoint,
-            Vector3 contactNormal, Collision collision3D)
+
+        public CollisionContext(GameObject a, GameObject b, Vector3 relVel, Vector3 contactPoint, Vector3 contactNormal, Collision collision3D)
         {
             A = a;
             B = b;
+#if UNITY_2D_PHYSICS
             Is2D = false;
+#endif
             RelativeVelocity = relVel;
             RelativeSpeed = relVel.magnitude;
             ContactPoint = contactPoint;
             ContactNormal = contactNormal;
             Collision3D = collision3D;
+#if UNITY_2D_PHYSICS
             Collision2D = default;
+#endif
         }
 
+#if UNITY_2D_PHYSICS
         public CollisionContext(GameObject a, GameObject b, Vector2 relVel2D, Vector2 contactPoint2D,
             Vector2 contactNormal2D, Collision2D collision2D)
         {
@@ -44,5 +53,6 @@ namespace CollisionSystem.Core
             Collision3D = default;
             Collision2D = collision2D;
         }
+#endif
     }
 }

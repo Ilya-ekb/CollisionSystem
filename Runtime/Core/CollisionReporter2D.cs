@@ -1,3 +1,4 @@
+#if UNITY_2D_PHYSICS
 using UnityEngine;
 
 namespace CollisionSystem.Core
@@ -12,3 +13,4 @@ namespace CollisionSystem.Core
         }
     }
 }
+#endif

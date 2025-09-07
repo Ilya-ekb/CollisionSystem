@@ -33,13 +33,14 @@ namespace CollisionSystem.Core
             var ctx = Build3DContext(reporter, otherGo, collision);
             TryAccept(ctx);
         }
-
+#if UNITY_2D_PHYSICS
         public void Register(GameObject reporter, Collision2D collision)
         {
             var otherGo = collision.gameObject;
             var ctx = Build2DContext(reporter, otherGo, collision);
             TryAccept(ctx);
         }
+#endif
 
         private static CollisionContext Build3DContext(GameObject a, GameObject b, Collision collision)
         {
@@ -50,7 +51,7 @@ namespace CollisionSystem.Core
             var ctx = new CollisionContext(a, b, collision.relativeVelocity, point, normal, collision);
             return ctx;
         }
-
+#if UNITY_2D_PHYSICS
         private static CollisionContext Build2DContext(GameObject a, GameObject b, Collision2D col2D)
         {
             var point = col2D.contactCount > 0 ? col2D.GetContact(0).point : (Vector2)a.transform.position;
@@ -58,6 +59,7 @@ namespace CollisionSystem.Core
             var ctx = new CollisionContext(a, b, col2D.relativeVelocity, point, normal, col2D);
             return ctx;
         }
+#endif
 
         private void TryAccept(in CollisionContext ctx)
         {
@@ -67,12 +69,15 @@ namespace CollisionSystem.Core
             if (!ctx.A.TryGetComponent<CollisionParticipant>(out var pa)) return;
             if (!ctx.B.TryGetComponent<CollisionParticipant>(out var pb)) return;
             if (!pa.CheckAll(ctx)) return;
-            var ctxForB = ctx.Is2D
+            var ctxForB =
+#if UNITY_2D_PHYSICS
+      ctx.Is2D
                 ? new CollisionContext(ctx.B, ctx.A, new Vector2(-ctx.RelativeVelocity.x, -ctx.RelativeVelocity.y),
                     new Vector2(ctx.ContactPoint.x, ctx.ContactPoint.y),
                     new Vector2(-ctx.ContactNormal.x, -ctx.ContactNormal.y), ctx.Collision2D)
-                : new CollisionContext(ctx.B, ctx.A, -ctx.RelativeVelocity, ctx.ContactPoint, -ctx.ContactNormal,
-                    ctx.Collision3D);
+                :
+#endif
+                new CollisionContext(ctx.B, ctx.A, -ctx.RelativeVelocity, ctx.ContactPoint, -ctx.ContactNormal, ctx.Collision3D);
             if (!pb.CheckAll(ctxForB)) return;
             pairsThisStep.Add(pair);
             NotifyAccepted(ctx);
