@@ -1,7 +1,7 @@
+using UnityEngine;
+
 namespace CollisionSystem.Core
 {
-    using UnityEngine;
-
     public readonly struct CollisionContext
     {
         public readonly GameObject A;
