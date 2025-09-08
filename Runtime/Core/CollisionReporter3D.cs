@@ -10,5 +10,15 @@ namespace CollisionSystem.Core
             if (CollisionManager.Default != null)
                 CollisionManager.Default.Register(gameObject, collision);
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!isActiveAndEnabled || other == null) return;
+            if (CollisionManager.Default != null)
+            {
+                var self = GetComponent<Collider>();
+                CollisionManager.Default.Register(gameObject, self, other);
+            }
+        }
     }
 }
