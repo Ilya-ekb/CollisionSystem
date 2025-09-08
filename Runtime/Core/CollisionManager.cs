@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NUnit.Framework;
 using UnityEngine;
 
 namespace CollisionSystem.Core
@@ -25,6 +24,12 @@ namespace CollisionSystem.Core
         private void FixedUpdate()
         {
             pairsThisStep.Clear();
+        }
+
+        private void OnDestroy()
+        {
+            if (Default != null && Default == this)
+                Default = null;
         }
 
         public void Register(GameObject reporter, Collision collision)
@@ -77,7 +82,8 @@ namespace CollisionSystem.Core
                     new Vector2(-ctx.ContactNormal.x, -ctx.ContactNormal.y), ctx.Collision2D)
                 :
 #endif
-                new CollisionContext(ctx.B, ctx.A, -ctx.RelativeVelocity, ctx.ContactPoint, -ctx.ContactNormal, ctx.Collision3D);
+                new CollisionContext(ctx.B, ctx.A, -ctx.RelativeVelocity, ctx.ContactPoint, -ctx.ContactNormal,
+                    ctx.Collision3D);
             if (!pb.CheckAll(ctxForB)) return;
             pairsThisStep.Add(pair);
             NotifyAccepted(ctx);
