@@ -5,7 +5,7 @@
   "description": "Collision registration system with per-participant SO conditions and deduplication per physics step (3D & 2D).",
   "author": { "name": "@oPlayI", "email": "2190055@gmail.com" },
   "documentationUrl": "https://github.com/Ilya-ekb/CollisionSystem/blob/main/Documentation~/README.md",
-  "changelogUrl": "https://github.com/Ilya-ekb/CollisionSystem/blob/main/Documentaion~/CHANGELOG.md",
+  "changelogUrl": "https://github.com/Ilya-ekb/CollisionSystem/blob/main/Documentation~/CHANGELOG.md",
   "licensesUrl": "https://github.com/Ilya-ekb/CollisionSystem/blob/main/Documentation~LICENSE.md",
   "keywords": ["collision", "physics", "conditions", "scriptableobject", "2d", "3d"],
   "dependencies": {}
