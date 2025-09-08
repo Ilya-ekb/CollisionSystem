@@ -14,6 +14,7 @@ namespace CollisionSystem.Core
         internal bool CheckAll(in CollisionContext ctx)
         {
             var owner = this;
+            if (conditions is null || conditions.Count == 0) return true;
             foreach (var c in conditions)
             {
                 if (c is null) continue;
