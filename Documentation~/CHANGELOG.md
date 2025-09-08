@@ -1,5 +1,8 @@
 # Changelog
 
+## [1.1.1] - 2025-09-08
+- Trigger Enter 2D Processing
+
 ## [1.1.0] - 2025-09-08
 - Trigger Enter Processing
 
